@@ -1,0 +1,108 @@
+import streamlit as st
+import datetime
+
+st.set_page_config(page_title="Climate Buddy", page_icon="🌍")
+
+st.title("🌍 Climate Buddy")
+st.write("Your Daily Environmental Companion")
+
+# Daily climate fact
+facts = [
+"South Africa is among the top 30 most water-stressed countries globally.",
+"Cape Town nearly reached 'Day Zero' during the 2017–2018 drought.",
+"A 5-minute shower can save up to 45 litres of water.",
+"Over 8 million tons of plastic enter the ocean every year.",
+"Plastic waste can take over 400 years to decompose."
+]
+
+today = datetime.date.today()
+fact = facts[today.day % len(facts)]
+
+st.header("💡 Daily Climate Fact")
+st.write(fact)
+
+# Mode selector
+mode = st.radio(
+"Select Mode",
+["Kids Mode 🧒", "Young Adult Mode 🎓"]
+)
+
+# Challenges
+kids_challenges = [
+"Turn off the tap while brushing your teeth",
+"Pick up 3 pieces of litter",
+"Use a reusable lunch container",
+"Take a 5-minute shower"
+]
+
+adult_challenges = [
+"Avoid single-use plastic today",
+"Carry a reusable water bottle",
+"Refuse a plastic straw",
+"Track your water usage today"
+]
+
+if mode == "Kids Mode 🧒":
+    challenge_list = kids_challenges
+else:
+    challenge_list = adult_challenges
+
+challenge = challenge_list[today.day % len(challenge_list)]
+
+st.header("🎯 Today's Challenge")
+st.write(challenge)
+
+# Quiz
+st.header("🧠 Quick Quiz")
+
+answer = st.radio(
+"Which resource is most scarce in South Africa?",
+["Coal", "Water", "Gold", "Wind"]
+)
+
+if st.button("Submit Answer"):
+    if answer == "Water":
+        st.success("Correct! Water scarcity is a major issue in South Africa.")
+    else:
+        st.error("Not quite. Try again tomorrow!")
+
+# Province facts
+st.header("💧 Province Water Facts")
+
+province_facts = {
+"Gauteng":"High water demand due to dense population.",
+"Western Cape":"Severe drought nearly caused Day Zero in 2018.",
+"KwaZulu-Natal":"Flood damage has impacted water infrastructure.",
+"Eastern Cape":"Recurring drought and water shortages.",
+"Limpopo":"Semi-arid province dependent on rainfall."
+}
+
+province = st.selectbox(
+"Select Province",
+list(province_facts.keys())
+)
+
+st.write(province_facts[province])
+
+# Water calculator
+st.header("🌊 Water Impact Calculator")
+
+people = st.slider("Number of People",1,1000,10)
+days = st.slider("Number of Days",1,30,7)
+
+if st.button("Calculate Water Saved"):
+    water_saved = people * days * 45
+    st.success(f"💧 Total Water Saved: {water_saved} litres")
+
+# Leaderboard
+st.header("🏆 Community Leaderboard")
+
+leaderboard = {
+"Aisha":5,
+"Liam":7,
+"Thando":4,
+"Naledi":6
+}
+
+for name,score in leaderboard.items():
+    st.write(f"{name} — {score} day streak 🔥")
