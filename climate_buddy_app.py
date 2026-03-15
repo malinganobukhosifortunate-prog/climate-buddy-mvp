@@ -1,3 +1,10 @@
+st.sidebar.title("🌍 Climate Buddy")
+
+page = st.sidebar.radio(
+    "Navigate",
+    ["Home", "Daily Challenge", "Quiz", "Water Impact", "Leaderboard"]
+)
+
 import streamlit as st
 import datetime
 
