@@ -1,10 +1,15 @@
+import streamlit as st
+import datetime
+import random
+
+st.set_page_config(page_title="Climate Buddy", page_icon="🌍")
+
 st.sidebar.title("🌍 Climate Buddy")
 
 page = st.sidebar.radio(
     "Navigate",
     ["Home", "Daily Challenge", "Quiz", "Water Impact", "Leaderboard"]
 )
-
 import streamlit as st
 import datetime
 
