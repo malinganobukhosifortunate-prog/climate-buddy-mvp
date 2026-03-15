@@ -1,3 +1,10 @@
+import streamlit as st
+
+st.set_page_config(page_title="Climate Buddy", page_icon="🌍")
+
+st.title("🌍 Climate Buddy")
+st.write("Your Daily Environmental Companion")
+
 # -*- coding: utf-8 -*-
 """climate_buddy_app
 
