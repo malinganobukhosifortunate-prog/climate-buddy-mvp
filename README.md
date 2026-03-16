@@ -1,7 +1,9 @@
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/malinganobukhosifortunate-prog/climate-buddy-mvp/blob/main/climate_buddy_mvp.ipynb)
 # 🌍 Climate Buddy
 
-![Climate Buddy Logo](assets/climate_buddy_logo.png)
+<p align="center">
+  <img src="assets/climate_buddy_logo.png" width="350">
+</p>
 
 Climate Buddy is a sustainability micro-learning and habit-building app that helps people develop daily environmental actions.The application designed to encourage sustainable behaviour through daily climate facts, quizzes, and conservation challenges.
 The app focuses on **water security, environmental conservation, and plastic pollution.
