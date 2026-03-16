@@ -5,6 +5,17 @@ import random
 # ---------------- PAGE CONFIG ----------------
 
 st.set_page_config(page_title="Climate Buddy", page_icon="🌍")
+st.image("assets/climate_buddy_logo.png", width=220)
+
+st.markdown(
+    "<h1 style='text-align: center;'>Climate Buddy</h1>",
+    unsafe_allow_html=True
+)
+
+st.markdown(
+    "<p style='text-align: center;'>Learn climate habits • Build eco streaks</p>",
+    unsafe_allow_html=True
+)
 
 # ---------------- SESSION STATE ----------------
 
@@ -32,7 +43,8 @@ st.markdown('<p class="subtitle">Learn climate habits. Build eco streaks.</p>', 
 
 # ---------------- SIDEBAR ----------------
 
-st.sidebar.title("🌍 Climate Buddy")
+st.sidebar.image("assets/climate_buddy_logo.png", width=120)
+st.sidebar.title("Climate Buddy")
 
 page = st.sidebar.radio(
     "Navigate",
