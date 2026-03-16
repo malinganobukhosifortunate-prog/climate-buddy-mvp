@@ -8,8 +8,9 @@ st.sidebar.title("🌍 Climate Buddy")
 
 page = st.sidebar.radio(
     "Navigate",
-    ["Home", "Daily Challenge", "Quiz", "Water Impact", "Leaderboard"]
+    ["Home", "Daily Challenge", "Quiz", "Water Impact", "Climate Map", "Leaderboard"]
 )
+
 if page == "Home":
 
     st.title("🌍 Climate Buddy")
@@ -271,6 +272,31 @@ if st.button("Calculate Water Saved"):
     water_saved = people * days * 45
     st.success(f"💧 Total Water Saved: {water_saved} litres")
 
+elif page == "Climate Map":
+
+    st.header("🌍 South African Climate Insights")
+
+    st.write("Select a province to learn about local climate and water challenges.")
+
+    provinces = [
+        "Gauteng",
+        "Western Cape",
+        "KwaZulu-Natal",
+        "Eastern Cape",
+        "Limpopo"
+    ]
+
+    province = st.selectbox("Choose a Province", provinces)
+
+    province_facts = {
+        "Gauteng": "High population density creates intense water demand. Infrastructure pressure makes water conservation critical.",
+        "Western Cape": "Experienced the severe 2017–2018 drought that nearly caused Cape Town's Day Zero water shutdown.",
+        "KwaZulu-Natal": "Flooding events and infrastructure damage have affected water security in recent years.",
+        "Eastern Cape": "Frequent drought conditions and aging infrastructure contribute to recurring water shortages.",
+        "Limpopo": "Semi-arid climate with strong dependence on rainfall and dam storage for water supply."
+    }
+
+    st.info(province_facts[province])
 # Leaderboard
 st.header("🏆 Community Leaderboard")
 
