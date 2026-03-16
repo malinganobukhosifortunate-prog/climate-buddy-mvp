@@ -127,19 +127,47 @@ elif page == "Quiz":
 
     st.header("🧠 Climate Quiz")
 
-    question = "Which resource is most scarce in South Africa?"
+    quiz_questions = [
+        {
+            "question": "Which resource is most scarce in South Africa?",
+            "options": ["Coal", "Water", "Gold", "Wind"],
+            "answer": "Water"
+        },
+        {
+            "question": "What year did Cape Town nearly reach 'Day Zero'?",
+            "options": ["2010", "2015", "2017-2018", "2022"],
+            "answer": "2017-2018"
+        },
+        {
+            "question": "How many litres can a 5-minute shower save compared to longer showers?",
+            "options": ["10 litres", "25 litres", "45 litres", "100 litres"],
+            "answer": "45 litres"
+        }
+    ]
 
-    answer = st.radio(
-        question,
-        ["Coal", "Water", "Gold", "Wind"]
-    )
+    score = 0
 
-    if st.button("Submit Answer"):
+    for i, q in enumerate(quiz_questions):
 
-        if answer == "Water":
-            st.success("✅ Correct! Water scarcity is a major issue in South Africa.")
+        user_answer = st.radio(
+            q["question"],
+            q["options"],
+            key=f"question_{i}"
+        )
+
+        if user_answer == q["answer"]:
+            score += 1
+
+    if st.button("Submit Quiz", key="submit_quiz"):
+
+        st.subheader(f"Your Score: {score} / {len(quiz_questions)}")
+
+        if score == len(quiz_questions):
+            st.success("🌟 Perfect! You're a Climate Champion!")
+        elif score >= 2:
+            st.info("👍 Good job! You know your climate facts.")
         else:
-            st.error("❌ Not quite. Try again tomorrow!")
+            st.warning("🌱 Keep learning — climate knowledge matters!")
 
 
 
