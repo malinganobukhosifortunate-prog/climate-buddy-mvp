@@ -1,24 +1,22 @@
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/malinganobukhosifortunate-prog/climate-buddy-mvp/blob/main/climate_buddy_mvp.ipynb)
 # 🌍 Climate Buddy
 
-Climate Buddy is a prototype environmental awareness application designed to encourage sustainable behaviour through daily climate facts, quizzes, and conservation challenges.
+![Climate Buddy Logo](assets/climate_buddy_logo.png)
 
-The app focuses on **water security, environmental conservation, and plastic pollution in South Africa**.
+Climate Buddy is a sustainability micro-learning and habit-building app that helps people develop daily environmental actions.The application designed to encourage sustainable behaviour through daily climate facts, quizzes, and conservation challenges.
+The app focuses on **water security, environmental conservation, and plastic pollution.
 
----
+The app includes:
 
-## 🚀 Features
-
-• Daily climate facts  
-• Kids mode and young adult mode  
-• Daily environmental challenges  
-• Streak tracker for behaviour change  
-• Climate knowledge quiz  
-• 7-day conservation challenge  
-• Province-based water facts  
+• Daily climate facts
+• Kids mode and young adult mode 
+• Climate challenges  
+• Interactive quizzes  
 • Water impact calculator  
-• Community leaderboard
+• South African climate insights  
+• Leaderboard and eco-streaks
 
+Built with Python using Streamlit.
 ---
 
 ## 💡 Purpose
