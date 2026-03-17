@@ -66,6 +66,19 @@ requirements.txt – required Python packages
 
 ---
 
+## 📸 App Preview
+
+### 🌍 Home Screen
+![Home](screenshots/home.png)
+
+### 🧠 Quiz Feature
+![Quiz](screenshots/quiz.png)
+
+### 💧 Impact Calculator
+![Impact](screenshots/impact.png)
+
+### 🏆 Leaderboard
+![Leaderboard](screenshots/leaderboard.png)
 ## 👤 Author
 
 Nobukhosi Malinga  
