@@ -199,6 +199,8 @@ elif page == "Quiz":
         else:
             st.error("Not quite. Try again tomorrow!")
 
+st.progress((question_index + 1) / len(questions))
+
 # ---------------- WATER CALCULATOR ----------------
 
 elif page == "Water Impact":
@@ -254,3 +256,27 @@ elif page == "Leaderboard":
 
     for rank, (name, score) in enumerate(sorted_board, start=1):
         st.write(f"{rank}. {name} — {score} day streak 🔥")
+
+if score < 30:
+    level = "🌱 Beginner"
+elif score < 70:
+    level = "🌿 Eco Learner"
+else:
+    level = "🌳 Climate Champion"
+
+st.success(f"Your Level: {level}")
+
+st.subheader("🏅 Your Badges")
+
+if streak >= 3:
+    st.success("🔥 Consistency Starter")
+
+if water_saved > 1000:
+    st.success("💧 Water Saver")
+
+if score > 80:
+    st.success("🌍 Climate Pro")
+
+xp = (streak * 10) + (challenges_done * 20)
+
+st.metric("⭐ XP Points", xp)
