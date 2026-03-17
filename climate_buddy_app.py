@@ -1,48 +1,17 @@
 import streamlit as st
 import datetime
-import random
 
 # ---------------- PAGE CONFIG ----------------
-
 st.set_page_config(page_title="Climate Buddy", page_icon="🌍")
-st.image("assets/climate_buddy_logo.png", width=220)
-
-st.markdown(
-    "<h1 style='text-align: center;'>Climate Buddy</h1>",
-    unsafe_allow_html=True
-)
-
-st.markdown(
-    "<p style='text-align: center;'>Learn climate habits • Build eco streaks</p>",
-    unsafe_allow_html=True
-)
 
 # ---------------- SESSION STATE ----------------
-
 if "quiz_score" not in st.session_state:
     st.session_state.quiz_score = 0
 
-# ---------------- APP STYLING ----------------
-
-st.markdown("""
-<style>
-.big-title {
-    font-size:40px;
-    font-weight:bold;
-    color:#2E8B57;
-}
-.subtitle {
-    font-size:20px;
-    color:#4F8A8B;
-}
-</style>
-""", unsafe_allow_html=True)
-
-st.markdown('<p class="big-title">🌍 Climate Buddy</p>', unsafe_allow_html=True)
-st.markdown('<p class="subtitle">Learn climate habits. Build eco streaks.</p>', unsafe_allow_html=True)
+if "streak" not in st.session_state:
+    st.session_state.streak = 0
 
 # ---------------- SIDEBAR ----------------
-
 st.sidebar.image("assets/climate_buddy_logo.png", width=120)
 st.sidebar.title("Climate Buddy")
 
@@ -51,8 +20,12 @@ page = st.sidebar.radio(
     ["Home", "Daily Challenge", "Quiz", "Water Impact", "Climate Map", "Leaderboard"]
 )
 
-# ---------------- HOME PAGE ----------------
+# ---------------- HEADER ----------------
+st.image("assets/climate_buddy_logo.png", width=200)
+st.markdown("<h1 style='text-align: center;'>🌍 Climate Buddy</h1>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center;'>Learn climate habits • Build eco streaks</p>", unsafe_allow_html=True)
 
+# ---------------- HOME ----------------
 if page == "Home":
 
     st.header("💡 Daily Climate Fact")
@@ -75,8 +48,8 @@ if page == "Home":
     st.header("📊 Your Climate Impact")
 
     water_saved = 3150
-    eco_streak = st.session_state.quiz_score
-    climate_score = min(100, eco_streak * 10)
+    streak = st.session_state.streak
+    score = min(100, streak * 10)
 
     col1, col2, col3 = st.columns(3)
 
@@ -84,199 +57,136 @@ if page == "Home":
         st.metric("💧 Water Saved", f"{water_saved} L")
 
     with col2:
-        st.metric("🔥 Eco Streak", f"{eco_streak} days")
+        st.metric("🔥 Eco Streak", f"{streak} days")
 
     with col3:
-        st.metric("🌍 Climate Score", f"{climate_score}/100")
+        st.metric("🌍 Climate Score", f"{score}/100")
 
-    st.progress(climate_score / 100)
+    st.progress(score / 100)
 
-    st.caption("Your sustainability progress today")
-
-    st.divider()
-
-    st.header("🏅 Your Climate Badge")
-
-    if eco_streak >= 5:
-        badge = "🌍 Climate Champion"
-    elif eco_streak >= 3:
-        badge = "💧 Water Saver"
-    elif eco_streak >= 1:
-        badge = "🌱 Eco Beginner"
+    # -------- LEVEL SYSTEM --------
+    if score < 30:
+        level = "🌱 Beginner"
+    elif score < 70:
+        level = "🌿 Eco Learner"
     else:
-        badge = "🌱 Start Your Climate Journey"
+        level = "🌳 Climate Champion"
 
-    st.success(badge)
+    st.success(f"Your Level: {level}")
 
-    st.header("📈 Climate Knowledge Level")
+    # -------- BADGES --------
+    st.subheader("🏅 Your Badges")
 
-    if eco_streak >= 10:
-        st.success("Expert 🌍")
-    elif eco_streak >= 5:
-        st.info("Climate Advocate 🌱")
-    elif eco_streak >= 2:
-        st.info("Climate Learner 📘")
-    else:
-        st.warning("Beginner 🌿")
+    if streak >= 3:
+        st.success("🔥 Consistency Starter")
+
+    if water_saved > 1000:
+        st.success("💧 Water Saver")
+
+    if score > 80:
+        st.success("🌍 Climate Pro")
+
+    # -------- XP --------
+    xp = (streak * 10) + (st.session_state.quiz_score * 20)
+    st.metric("⭐ XP Points", xp)
 
 # ---------------- DAILY CHALLENGE ----------------
-
 elif page == "Daily Challenge":
 
     st.header("🎯 Today's Climate Challenge")
 
-    kids_challenges = [
-        "Turn off the tap while brushing your teeth 🚰",
+    kids = [
+        "Turn off the tap while brushing 🚰",
         "Pick up 3 pieces of litter 🌱",
-        "Use a reusable lunch container 🍱",
+        "Use reusable lunch container 🍱",
         "Take a 5-minute shower 🚿"
     ]
 
-    adult_challenges = [
-        "Avoid single-use plastic today ♻",
-        "Carry a reusable water bottle 💧",
-        "Refuse a plastic straw 🌊",
-        "Track your water usage today 📊"
+    adults = [
+        "Avoid single-use plastic ♻",
+        "Carry reusable bottle 💧",
+        "Refuse plastic straw 🌊",
+        "Track your water usage 📊"
     ]
 
     mode = st.toggle("Kids Mode")
 
-    if mode:
-        challenge_list = kids_challenges
-        st.info("Kids Mode Activated 🧒")
-    else:
-        challenge_list = adult_challenges
-        st.info("Young Adult Mode 🎓")
+    challenge_list = kids if mode else adults
 
     today = datetime.date.today()
     challenge = challenge_list[today.day % len(challenge_list)]
 
     st.success(challenge)
 
-# ---------------- QUIZ ----------------
+    if st.button("Mark as Completed"):
+        st.session_state.streak += 1
+        st.success("🔥 Streak Increased!")
 
+# ---------------- QUIZ ----------------
 elif page == "Quiz":
 
     st.header("🧠 Daily Climate Quiz")
 
-    quiz_questions = [
-        {
-            "question": "Which resource is most scarce in South Africa?",
-            "options": ["Coal", "Water", "Gold", "Wind"],
-            "answer": "Water"
-        },
-        {
-            "question": "What year did Cape Town nearly reach 'Day Zero'?",
-            "options": ["2010", "2015", "2017–2018", "2022"],
-            "answer": "2017–2018"
-        },
-        {
-            "question": "How many litres can a 5-minute shower save?",
-            "options": ["10 litres", "25 litres", "45 litres", "100 litres"],
-            "answer": "45 litres"
-        },
-        {
-            "question": "Which province experienced major flooding in 2022?",
-            "options": ["Gauteng", "KwaZulu-Natal", "Free State", "Northern Cape"],
-            "answer": "KwaZulu-Natal"
-        }
+    quiz = [
+        ("Which resource is most scarce in South Africa?", ["Coal", "Water", "Gold", "Wind"], "Water"),
+        ("What year was Day Zero risk?", ["2010", "2015", "2017–2018", "2022"], "2017–2018"),
+        ("5-min shower saves?", ["10", "25", "45", "100"], "45"),
+        ("Floods in 2022?", ["Gauteng", "KZN", "Free State", "NC"], "KZN")
     ]
 
     today = datetime.date.today()
-    question = quiz_questions[today.day % len(quiz_questions)]
+    q = quiz[today.day % len(quiz)]
 
-    user_answer = st.radio(
-        question["question"],
-        question["options"],
-        key="quiz_question"
-    )
+    answer = st.radio(q[0], q[1], key="quiz_unique")
 
     if st.button("Submit Answer"):
-
-        if user_answer == question["answer"]:
+        if answer == q[2]:
             st.success("Correct! 🌱")
             st.session_state.quiz_score += 1
         else:
-            st.error("Not quite. Try again tomorrow!")
+            st.error("Try again tomorrow!")
 
-st.progress((question_index + 1) / len(questions))
-
-# ---------------- WATER CALCULATOR ----------------
-
+# ---------------- WATER IMPACT ----------------
 elif page == "Water Impact":
 
     st.header("🌊 Water Impact Calculator")
 
-    people = st.slider("Number of People", 1, 1000, 10)
-    days = st.slider("Number of Days", 1, 30, 7)
+    people = st.slider("People", 1, 100, 10)
+    days = st.slider("Days", 1, 30, 7)
 
-    if st.button("Calculate Water Saved"):
-
-        water_saved = people * days * 45
-
-        st.metric("💧 Total Water Saved", f"{water_saved} litres")
-
-        st.info("That's enough water to supply several households.")
+    if st.button("Calculate"):
+        saved = people * days * 45
+        st.metric("💧 Water Saved", f"{saved} litres")
 
 # ---------------- CLIMATE MAP ----------------
-
 elif page == "Climate Map":
 
-    st.header("🌍 South African Climate Insights")
+    st.header("🌍 SA Climate Insights")
 
-    province_facts = {
-        "Gauteng": "High population density creates intense water demand.",
-        "Western Cape": "Severe drought nearly caused Day Zero in 2018.",
-        "KwaZulu-Natal": "Flood damage has impacted water infrastructure.",
-        "Eastern Cape": "Recurring drought and water shortages.",
-        "Limpopo": "Semi-arid province dependent on rainfall."
+    data = {
+        "Gauteng": "High demand due to population.",
+        "Western Cape": "Severe drought history.",
+        "KZN": "Flood impacts.",
+        "Eastern Cape": "Water shortages.",
+        "Limpopo": "Rainfall dependent."
     }
 
-    province = st.selectbox(
-        "Choose Province",
-        list(province_facts.keys())
-    )
-
-    st.info(province_facts[province])
+    province = st.selectbox("Province", list(data.keys()))
+    st.info(data[province])
 
 # ---------------- LEADERBOARD ----------------
-
 elif page == "Leaderboard":
 
-    st.header("🏆 Climate Buddy Leaderboard")
+    st.header("🏆 Leaderboard")
 
-    leaderboard = {
+    board = {
         "Aisha": 5,
         "Liam": 7,
         "Thando": 4,
         "Naledi": 6
     }
 
-    sorted_board = sorted(leaderboard.items(), key=lambda x: x[1], reverse=True)
+    sorted_board = sorted(board.items(), key=lambda x: x[1], reverse=True)
 
-    for rank, (name, score) in enumerate(sorted_board, start=1):
-        st.write(f"{rank}. {name} — {score} day streak 🔥")
-
-if score < 30:
-    level = "🌱 Beginner"
-elif score < 70:
-    level = "🌿 Eco Learner"
-else:
-    level = "🌳 Climate Champion"
-
-st.success(f"Your Level: {level}")
-
-st.subheader("🏅 Your Badges")
-
-if streak >= 3:
-    st.success("🔥 Consistency Starter")
-
-if water_saved > 1000:
-    st.success("💧 Water Saver")
-
-if score > 80:
-    st.success("🌍 Climate Pro")
-
-xp = (streak * 10) + (challenges_done * 20)
-
-st.metric("⭐ XP Points", xp)
+    for i, (name, score) in enumerate(sorted_board, 1):
+        st.write(f"{i}. {name} — {score} days 🔥")
