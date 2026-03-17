@@ -71,5 +71,8 @@ requirements.txt – required Python packages
 Nobukhosi Malinga  
 MSc Environmental Science – University of the Witwatersrand
 
+## © License
+This project is the intellectual property of Nobukhosi Malinga.  
+Unauthorized commercial use or reproduction is not permitted.
 GitHub:  
 https://github.com/malinganobukhosifortunate-prog
