@@ -8,15 +8,18 @@
 Climate Buddy is a sustainability micro-learning and habit-building app that helps people develop daily environmental actions.The application designed to encourage sustainable behaviour through daily climate facts, quizzes, and conservation challenges.
 The app focuses on **water security, environmental conservation, and plastic pollution.
 
+## 🚀 Live App
+👉https://climate-buddy-mvp-ygr523kne4qu73ti9evidg.streamlit.app/
+
 The app includes:
 
-• Daily climate facts
-• Kids mode and young adult mode 
-• Climate challenges  
-• Interactive quizzes  
-• Water impact calculator  
-• South African climate insights  
-• Leaderboard and eco-streaks
+- 🎯 Daily climate challenges
+- 🧠 Interactive quizzes
+- 💧 Water impact calculator
+- 📍 Province-based environmental insights (South Africa)
+- 🏆 Community leaderboard
+- 🔥 Streak tracking & gamification
+
 
 Built with Python using Streamlit.
 ---
@@ -65,6 +68,13 @@ requirements.txt – required Python packages
 • Add mobile-friendly interface
 
 ---
+
+## 🧠 What I Learned
+
+- Building interactive apps with Streamlit
+- Designing user-friendly interfaces
+- Applying data to real-world environmental problems
+- Structuring deployable MVPs
 
 ## 📸 App Preview
 
